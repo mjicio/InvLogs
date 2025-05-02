@@ -104,7 +104,7 @@ public class LogsGui implements CommandExecutor, Listener {
 
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     String guiTitle = ChatColor.translateAlternateColorCodes('&',
-                            plugin.getConfig().getString("gui.title", "&8Logs di Inventario"));
+                            plugin.getConfig().getString("gui.title", "&8Logs di Inventario").replace("%player%", targetName));
                     Inventory gui = Bukkit.createInventory(null, 54, guiTitle);
 
                     for (int i = 0; i < items.size(); i++) {
