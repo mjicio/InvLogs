@@ -1,0 +1,24 @@
+#
+#    ███╗   ███╗     ██╗██╗ ██████╗██╗ ██████╗
+#    ████╗ ████║     ██║██║██╔════╝██║██╔═══██╗
+#    ██╔████╔██║     ██║██║██║     ██║██║   ██║
+#    ██║╚██╔╝██║██   ██║██║██║     ██║██║   ██║
+#    ██║ ╚═╝ ██║╚█████╔╝██║╚██████╗██║╚██████╔╝███████╗
+#    ╚═╝     ╚═╝ ╚════╝ ╚═╝ ╚═════╝╚═╝ ╚═════╝ ╚══════╝ 's InvLogs plugin, created for AtlantisRP test.
+#
+
+mysql:
+  host: "localhost"
+  port: 3306
+  database: "minecraft"
+  username: "user"
+  password: "password"
+
+
+gui:
+  title: "&6Inventari di %player%"
+  item: "BOOK"
+  item-title: "&e%evento% - %data%"
+  item-lore:
+    - "&7Evento: &f%evento%"
+    - "&7Data: &f%data%"

@@ -1,0 +1,12 @@
+name: InvLogs
+version: '1.0'
+main: it.mjicio.invLogs.InvLogs
+api-version: '1.21'
+commands:
+  invlogs:
+    description: Gestisce i log dell'inventario
+    usage: /invlogs forcesave <player>
+    subcommands:
+      forcesave:
+        description: Salva forzatamente l'inventario di un giocatore
+        usage: /invlogs forcesave <player>
