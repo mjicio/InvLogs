@@ -27,22 +27,27 @@ public class InventorySave {
         String inventoryData = serializeInventory(player.getInventory());
         long timestamp = System.currentTimeMillis();
 
+
         String sqlInsert = "INSERT INTO inventory_logs (uuid, evento, timestamp, inventario) VALUES (?, ?, ?, ?)";
         String sqlCount = "SELECT COUNT(*) FROM inventory_logs WHERE uuid = ?";
         String sqlDeleteOldest = "DELETE FROM inventory_logs WHERE uuid = ? ORDER BY timestamp ASC LIMIT 1";
 
+
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try (Connection connection = db.getConnection()) {
+
                 try (PreparedStatement countStmt = connection.prepareStatement(sqlCount)) {
                     countStmt.setString(1, uuid);
                     ResultSet rs = countStmt.executeQuery();
                     if (rs.next() && rs.getInt(1) >= 54) {
+
                         try (PreparedStatement delStmt = connection.prepareStatement(sqlDeleteOldest)) {
                             delStmt.setString(1, uuid);
                             delStmt.executeUpdate();
                         }
                     }
                 }
+
 
                 try (PreparedStatement insertStmt = connection.prepareStatement(sqlInsert)) {
                     insertStmt.setString(1, uuid);
@@ -51,11 +56,13 @@ public class InventorySave {
                     insertStmt.setString(4, inventoryData);
                     insertStmt.executeUpdate();
                 }
+
             } catch (SQLException e) {
                 plugin.getLogger().severe("Errore salvataggio inventario: " + e.getMessage());
             }
         });
     }
+
 
     private String serializeInventory(PlayerInventory inventory) {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -69,7 +76,7 @@ public class InventorySave {
             return Base64.getEncoder().encodeToString(outputStream.toByteArray());
 
         } catch (IOException e) {
-            e.printStackTrace();
+            plugin.getLogger().severe("Errore durante la serializzazione dell'inventario: " + e.getMessage());
             return null;
         }
     }

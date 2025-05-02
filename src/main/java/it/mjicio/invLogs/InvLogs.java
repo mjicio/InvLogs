@@ -1,6 +1,5 @@
 package it.mjicio.invLogs;
 
-import it.mjicio.invLogs.commands.ForceSave;
 import it.mjicio.invLogs.commands.LogsGui;
 import it.mjicio.invLogs.events.*;
 import it.mjicio.invLogs.manager.InventorySave;
@@ -28,11 +27,10 @@ public class InvLogs extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerQuit(inventorySave), this);
         getServer().getPluginManager().registerEvents(new PlayerDrop(inventorySave), this);
         getServer().getPluginManager().registerEvents(new PlayerDeath(inventorySave), this);
-        getServer().getPluginManager().registerEvents(new PlayerPickUp(inventorySave), this);
+        getServer().getPluginManager().registerEvents(new PlayerPickUp(this, inventorySave), this);
 
         // Comandi
-        getCommand("invlogs").setExecutor(new ForceSave(this, inventorySave));
-        getCommand("invlogs").setExecutor(new LogsGui(this));
+        getCommand("invlogs").setExecutor(new LogsGui(this, inventorySave));
     }
 
     public Map<String, Integer> getLogGuiCache() {
